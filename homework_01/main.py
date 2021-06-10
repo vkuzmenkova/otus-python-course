@@ -2,6 +2,7 @@
 Домашнее задание №1
 Функции и структуры данных
 """
+import math
 def power_numbers(*numbers):
     """
     функция, которая принимает N целых чисел,
@@ -22,13 +23,12 @@ def is_prime(number):
     if number < 2:
         return False
 
-    # for i in range(2, math.floor(math.sqrt(number))):
-    for i in range(2, number):
+    for i in range(2, round(math.sqrt(number))+1):
         if number % i == 0:
             return False
     return True
 
-def filter_numbers(list_of_numbers: list [int], func_filter) :
+def filter_numbers(list_of_numbers, func_filter) :
     """
     функция, которая на вход принимает список из целых чисел,
     и возвращает только чётные/нечётные/простые числа
