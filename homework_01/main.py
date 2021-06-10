@@ -28,7 +28,7 @@ def is_prime(number):
             return False
     return True
 
-def filter_numbers(list_of_numbers, func_filter) :
+def filter_numbers(list_of_numbers, func_filter=ODD) :
     """
     функция, которая на вход принимает список из целых чисел,
     и возвращает только чётные/нечётные/простые числа
@@ -45,3 +45,4 @@ def filter_numbers(list_of_numbers, func_filter) :
         return list(filter(lambda num: True if num % 2 == 0 else False, list_of_numbers))
     if func_filter == PRIME:
         return list(filter(is_prime, list_of_numbers))
+
