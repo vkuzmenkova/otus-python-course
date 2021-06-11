@@ -5,7 +5,7 @@
 import math
 def power_numbers(*numbers):
     """
-    функция, которая принимает N целых чисел,
+    функция, которая принимает N целых чисел
     и возвращает список квадратов этих чисел
     >>> power_numbers(1, 2, 5, 7)
     <<< [1, 4, 25, 49]
@@ -19,6 +19,14 @@ EVEN = "even"
 PRIME = "prime"
 
 def is_prime(number):
+    """
+    функция принимает на вход число
+    и показывает, простое ли оно
+    >>> is_prime(5)
+    <<< True
+    >>> is_prime(6)
+    <<< False
+    """
 
     if number < 2:
         return False
@@ -28,9 +36,31 @@ def is_prime(number):
             return False
     return True
 
+def is_odd(number):
+    """
+    функция принимает на вход число
+    и показывает, нечетное ли оно
+    >>> is_odd(1)
+    <<< True
+    >>> is_odd(2)
+    <<< False
+    """
+    return True if number % 2 != 0 else False
+
+def is_even(number):
+    """
+        функция принимает на вход число
+        и показывает, четное ли оно
+        >>> is_even(1)
+        <<< False
+        >>> is_even(2)
+        <<< True
+        """
+    return True if number % 2 == 0 else False
+
 def filter_numbers(list_of_numbers, func_filter=ODD) :
     """
-    функция, которая на вход принимает список из целых чисел,
+    функция, которая на вход принимает список из целых чисел
     и возвращает только чётные/нечётные/простые числа
     (выбор производится передачей дополнительного аргумента)
 
@@ -38,11 +68,12 @@ def filter_numbers(list_of_numbers, func_filter=ODD) :
     <<< [1, 3]
     >>> filter_numbers([2, 3, 4, 5], EVEN)
     <<< [2, 4]
+    >>> filter_numbers([2, 3, 4, 5], PRIME)
+    <<< [2, 3, 5]
     """
     if func_filter == ODD:
-        return list(filter(lambda num: True if num % 2 != 0 else False, list_of_numbers))
+        return list(filter(is_odd, list_of_numbers))
     if func_filter == EVEN:
-        return list(filter(lambda num: True if num % 2 == 0 else False, list_of_numbers))
+        return list(filter(is_even, list_of_numbers))
     if func_filter == PRIME:
         return list(filter(is_prime, list_of_numbers))
-
