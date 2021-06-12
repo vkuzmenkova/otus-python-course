@@ -58,6 +58,8 @@ def is_even(number):
         """
     return True if number % 2 == 0 else False
 
+filter_types = {ODD: is_odd, EVEN:is_even, PRIME: is_prime}
+
 def filter_numbers(list_of_numbers, func_filter=ODD) :
     """
     функция, которая на вход принимает список из целых чисел
@@ -71,9 +73,12 @@ def filter_numbers(list_of_numbers, func_filter=ODD) :
     >>> filter_numbers([2, 3, 4, 5], PRIME)
     <<< [2, 3, 5]
     """
-    if func_filter == ODD:
-        return list(filter(is_odd, list_of_numbers))
-    if func_filter == EVEN:
-        return list(filter(is_even, list_of_numbers))
-    if func_filter == PRIME:
-        return list(filter(is_prime, list_of_numbers))
+
+    return list(filter(filter_types[func_filter], list_of_numbers))
+
+    # if func_filter == ODD:
+    #     return list(filter(is_odd, list_of_numbers))
+    # if func_filter == EVEN:
+    #     return list(filter(is_even, list_of_numbers))
+    # if func_filter == PRIME:
+    #     return list(filter(is_prime, list_of_numbers))
