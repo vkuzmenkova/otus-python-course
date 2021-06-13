@@ -60,7 +60,7 @@ def is_even(number):
 
 filter_types = {
     ODD: is_odd,
-    EVEN:is_even,
+    EVEN: is_even,
     PRIME: is_prime
 }
 
