@@ -58,7 +58,11 @@ def is_even(number):
         """
     return True if number % 2 == 0 else False
 
-filter_types = {ODD: is_odd, EVEN:is_even, PRIME: is_prime}
+filter_types = {
+    ODD: is_odd,
+    EVEN:is_even,
+    PRIME: is_prime
+}
 
 def filter_numbers(list_of_numbers, func_filter=ODD) :
     """
