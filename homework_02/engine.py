@@ -1,6 +1,9 @@
 """
 create dataclass `Engine`
 """
+from dataclasses import dataclass
 
+@dataclass
 class Engine:
-    pass
+    volume: int
+    pistons: int
