@@ -21,6 +21,7 @@ class Pet:
 
 
 class User:
+
     def __init__(self, name, surname, address, phone,
                  pets: list[Pet] = []):  # default arg value is mutable - что с этим делать?
         self.name = name
@@ -32,6 +33,16 @@ class User:
             pet.owner = self
         self.__password = None
         # instance attribute defined outside init - все атрибуты правильно объявлять внутри init?
+
+    # @property
+    # def pets(self):
+    #     return self.pets
+    #
+    # @pets.setter
+    # def pets(self, pet_list: list[Pet]):
+    #     self.pets = pet_list
+    #     for pet in pet_list:
+    #         pet.owner = self
 
     @property
     def password(self):
@@ -51,7 +62,7 @@ class User:
         else:
             pet_string = ''
             for temp_pet in self.pets:
-                pet_string += str(temp_pet)
+                pet_string += str(temp_pet) + ' '
             return f"{self.name} {self.surname} from {self.address}. Call: {self.phone}. " \
                    f"Owner of: {pet_string}"
 
@@ -61,12 +72,20 @@ class User:
         return self
 
 
-owl = Pet("Hedwig", "Oul", 1990)
-owl = Pet("Hedwig", "Oul", 1990)
+owl = Pet("Hedwig", "Owl", 1990)
+cat = Pet("Crookshanks", "Cat", 2000)
+rat = Pet("Scabbers", "Rat", 2001)
 man = User("Harry", "Potter", "4, Privet Drive, Little Whinging, Surrey, UK", "(020) 1234 5678", [owl])
+redhead_man = User("Ron", "Weasley", "Burrow, UK", "(020) 8765 4321")
 
-print(owl.owner)
+man.pets.append(cat)  # как установить хозяина?
+print(man)
+print(cat.owner)  # ??
 
-# print(man.password)
-# man.password = "qwerty"
-# print(man.password)
+redhead_man += rat
+print(redhead_man)
+print(rat.owner)
+
+print(man.password)
+man.password = "qwerty"
+print(man.password)
