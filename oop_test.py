@@ -78,7 +78,7 @@ rat = Pet("Scabbers", "Rat", 2001)
 man = User("Harry", "Potter", "4, Privet Drive, Little Whinging, Surrey, UK", "(020) 1234 5678", [owl])
 redhead_man = User("Ron", "Weasley", "Burrow, UK", "(020) 8765 4321")
 
-man.pets.append(cat)  # как установить хозяина?
+man.pets.append(cat)  # как установить животному хозяина?
 print(man)
 print(cat.owner)  # ??
 
