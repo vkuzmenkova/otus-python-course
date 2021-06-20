@@ -16,8 +16,8 @@ class Pet:
         self.year_of_birth = year_of_birth
         self.owner = owner
 
-    def __str__(self):
-        return f"{self.name} the {self.breed} "
+    def __repr__(self):
+        return f"{self.name} the {self.breed}"
 
 
 class User:
@@ -28,6 +28,8 @@ class User:
         self.address = address
         self.phone = phone
         self.pets = pets
+        for pet in pets:
+            pet.owner = self
         self.__password = None
         # instance attribute defined outside init - все атрибуты правильно объявлять внутри init?
 
@@ -59,17 +61,12 @@ class User:
         return self
 
 
-man = User("Sherlock", "Holmes", "221b, Baker street, London", "(020) 1234 5678")
-dog = Pet("Jacky", "Нound", 1990)
-cat = Pet("Betty", "Сat", 1999)
+owl = Pet("Hedwig", "Oul", 1990)
+owl = Pet("Hedwig", "Oul", 1990)
+man = User("Harry", "Potter", "4, Privet Drive, Little Whinging, Surrey, UK", "(020) 1234 5678", [owl])
 
-print(man)
-man += dog
-man += cat
-print(man)
-print(f"{cat}. Owner: {cat.owner.name} {cat.owner.surname}")
+print(owl.owner)
 
-# @property or methods?
-print(man.password)
-man.password = "qwerty"
-print(man.password)
+# print(man.password)
+# man.password = "qwerty"
+# print(man.password)
