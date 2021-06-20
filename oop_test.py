@@ -6,6 +6,8 @@
 # Добавьте список из Pet как атрибут экземпляра для User.
 # Создайте несколько экземпляров класса User, добавьте к юзерам 1-4 домашних животных
 
+# cannot import name 'Pet' from partially initialized module 'pet' (most likely due to a circular import)
+
 class Pet:
 
     def __init__(self, name, breed, year_of_birth, owner=None):  # owner: User = None
@@ -64,9 +66,10 @@ cat = Pet("Betty", "Сat", 1999)
 print(man)
 man += dog
 man += cat
-# Как лучше определять геттеры и сеттеры: через аннотации или методы get/set?
-# Так, например, читая код, не понимаешь сразу, приватный это атрибут или нет
-man.password = "qwerty"
 print(man)
-print(f"{cat}. Owner: {cat.owner} {cat.owner.surname}")
+print(f"{cat}. Owner: {cat.owner.name} {cat.owner.surname}")
+
+# @property or methods?
+print(man.password)
+man.password = "qwerty"
 print(man.password)
