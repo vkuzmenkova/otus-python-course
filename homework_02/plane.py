@@ -15,14 +15,18 @@ class Plane(Vehicle):
         self.cargo = 0
 
     def load_cargo(self, cargo_weight):
-
+        """
+        Добавляет на самолет груз, если он не превышает ограничение по весу.
+        """
         if self.cargo + cargo_weight <= self.max_cargo:
             self.cargo += cargo_weight
         else:
             raise CargoOverload("Cargo is too heavy.")
 
     def remove_all_cargo(self):
-
+        """
+        Опустошает грузовое отделение и возвращает вес удаленного груза.
+        """
         current_cargo = self.cargo
         self.cargo = 0
 

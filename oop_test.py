@@ -22,17 +22,20 @@ class Pet:
 
 class User:
 
-    def __init__(self, name, surname, address, phone,
-                 pets: list[Pet] = []):  # default arg value is mutable - что с этим делать?
+    def __init__(self, name, surname, address, phone, muppet: Pet, password=None,
+                 pets=None):  # default arg value is mutable - что с этим делать?
+        if pets is None:
+            pets = []
         self.name = name
         self.surname = surname
         self.address = address
         self.phone = phone
         self.pets = pets
+        self.mypet = muppet
         for pet in pets:
             pet.owner = self
-        self.__password = None
-        # instance attribute defined outside init - все атрибуты правильно объявлять внутри init?
+        self.__password = password
+
 
     # @property
     # def pets(self):
@@ -46,7 +49,10 @@ class User:
 
     @property
     def password(self):
-        return self.__password
+        if self.__password is None:
+            print('Password is not set.')
+        else:
+            return self.__password
 
     @password.setter
     def password(self, password):
@@ -75,17 +81,23 @@ class User:
 owl = Pet("Hedwig", "Owl", 1990)
 cat = Pet("Crookshanks", "Cat", 2000)
 rat = Pet("Scabbers", "Rat", 2001)
-man = User("Harry", "Potter", "4, Privet Drive, Little Whinging, Surrey, UK", "(020) 1234 5678", [owl])
-redhead_man = User("Ron", "Weasley", "Burrow, UK", "(020) 8765 4321")
+man = User("Harry", "Potter", "4, Privet Drive, Little Whinging, Surrey, UK", "(020) 1234 5678", None, [owl])
 
-man.pets.append(cat)  # как установить животному хозяина?
-print(man)
-print(cat.owner)  # ??
+# man.pets.append(cat)
+# print(man)
+# print(cat.owner)  # ??
+#
+# redhead_man += rat
+# print(redhead_man)
+# print(rat.owner)
+#
+# print(man.password)
+# man.password = "qwerty"
+# print(man.password)
 
-redhead_man += rat
-print(redhead_man)
-print(rat.owner)
+list_of_pets = [owl, cat]
+redhead_man = User("Ron", "Weasley", "Burrow, UK", "(020) 8765 4321", "1234")
+redhead_woman = User("Jeanny", "Weasley", "Burrow, UK", "(020) 8765 4321", "1234")
 
-print(man.password)
-man.password = "qwerty"
-print(man.password)
+print(id(redhead_man.pets))
+print(id(redhead_woman.pets))

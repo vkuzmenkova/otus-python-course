@@ -7,8 +7,8 @@ class Car(Vehicle):
     engine = None
 
     def set_engine(self, engine: Engine):
+        """
+        Ставит двигатель на машину.
+        """
         self.engine = engine
 
-
-# car = Car(100, 4, 9)
-# print(car.weight)
