@@ -4,9 +4,6 @@ from homework_02.base import Vehicle
 
 class Plane(Vehicle):
 
-    cargo = 0
-    max_cargo = 1000
-
     def __init__(self, weight, fuel, fuel_consumption, max_cargo):
         super().__init__(weight, fuel, fuel_consumption)
         self.max_cargo = max_cargo
@@ -29,3 +26,4 @@ class Plane(Vehicle):
         self.cargo = 0
 
         return current_cargo
+
