@@ -4,13 +4,11 @@ from homework_02.base import Vehicle
 
 class Plane(Vehicle):
 
-    # добавьте атрибуты cargo и max_cargo классу Plane ?
-    # cargo = 0
-    # max_cargo = 1000
+    cargo = 0
+    max_cargo = 1000
 
     def __init__(self, weight, fuel, fuel_consumption, max_cargo):
         super().__init__(weight, fuel, fuel_consumption)
-        # super(Plane, self).__init__(weight, fuel, fuel_consumption) как правильно вызвать конструктор?
         self.max_cargo = max_cargo
         self.cargo = 0
 
