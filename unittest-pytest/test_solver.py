@@ -45,9 +45,6 @@ def test_values_pytest(args, results):
         Solver.add(args)
 
 
-# фикстура - объект, который иниц только для тестов
-# одни фикстуры могут использовать другие
-
 @pytest.fixture
 def temp_user():
     return User("John", "Smith", 23)
