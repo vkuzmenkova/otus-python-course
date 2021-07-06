@@ -3,6 +3,29 @@ import sys, os
 TYPE_ERROR_TEXT = 'Args should be int or float'
 
 
+class User:
+    def __init__(self, name, surname, age):
+        self.name = name + ' ' + surname
+        self.age = age
+
+    def __str__(self):
+        return f"{self.name}, {self.age}"
+
+    @classmethod
+    def is_user_adult(cls, user):
+        if user.age >= 18:
+            return True
+        else:
+            return False
+
+    @classmethod
+    def is_user_elderly(cls, user):
+        if user.age > 65:
+            return True
+        else:
+            return False
+
+
 class Solver:
 
     @classmethod
@@ -19,16 +42,5 @@ class Solver:
             os.remove(filepath)
 
 
-class User:
-    def __init__(self, name, surname, age):
-        self.name = name + ' ' + surname
-        self.age = age
-
-    def __str__(self):
-        return f"{self.name}, {self.age}"
-
-
 print(Solver.add(1, 2))
 print(type(None))
-
-

@@ -1,8 +1,8 @@
-from solver import Solver, TYPE_ERROR_TEXT, User
+import tempfile
+
+from solver import Solver, User
 from unittest import TestCase
 import pytest, os
-
-import sys
 
 
 class TestSolver(TestCase):
@@ -54,15 +54,29 @@ def temp_user():
 
 
 @pytest.fixture
-def temp_file():
-    filepath = "test-text.txt"
-    file = open(filepath, 'w')
-    file.write(temp_user)
-    file.close()
-
-    return filepath
+def tem_user_group(temp_user):
+    return [User("James", "Potter", 33), temp_user]
 
 
-def test_remove_file():
-    filepath = temp_file
-    Solver.remove_file(filepath)
+@pytest.fixture
+def tem_user_group(temp_user):
+    return [User("James", "Potter", 33), temp_user]
+
+
+@pytest.fixture
+def temp_tree():
+    path = os.path.join(os.getcwd(), "folder")
+    os.mkdir(path)
+    yield
+    # os.unlink(path) - PermissionError
+
+
+@pytest.mark.usefixtures("temp_tree")
+def test_adult(tem_user_group):
+    assert all(map(User.is_user_adult, tem_user_group)) is True
+    # do smth with folder from fixture
+
+
+@pytest.mark.skip('test_elderly is skipped')
+def test_elderly(tem_user_group):
+    assert all(map(User.is_user_elderly, tem_user_group)) is False
