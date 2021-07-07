@@ -3,6 +3,9 @@ import tempfile
 from solver import Solver, User
 from unittest import TestCase
 import pytest, os
+from faker import Faker
+
+fake = Faker()
 
 
 class TestSolver(TestCase):
@@ -45,14 +48,9 @@ def test_values_pytest(args, results):
         Solver.add(args)
 
 
-@pytest.fixture
-def temp_user():
-    return User("John", "Smith", 23)
-
-
-@pytest.fixture
-def tem_user_group(temp_user):
-    return [User("James", "Potter", 33), temp_user]
+@pytest.fixture(params=[User("John", "Smith", 23), User("Jane", "Smith", 28)])
+def temp_user(request):
+    return request.param
 
 
 @pytest.fixture
@@ -62,7 +60,7 @@ def tem_user_group(temp_user):
 
 @pytest.fixture
 def temp_tree():
-    path = os.path.join(os.getcwd(), "folder")
+    path = os.path.join(os.getcwd(), "folder" + str(fake.pyint()))
     os.mkdir(path)
     yield
     # os.unlink(path) - PermissionError
@@ -77,3 +75,5 @@ def test_adult(tem_user_group):
 @pytest.mark.skip('test_elderly is skipped')
 def test_elderly(tem_user_group):
     assert all(map(User.is_user_elderly, tem_user_group)) is False
+
+
