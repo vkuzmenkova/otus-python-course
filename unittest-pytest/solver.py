@@ -30,17 +30,21 @@ class Solver:
 
     @classmethod
     def add(cls, a, b):
+        if any(map(lambda x: isinstance(x, bool), (a, b))):
+            raise TypeError(TYPE_ERROR_TEXT)
         if all(map(lambda x: isinstance(x, (int, float)), (a, b))):
-            result = a + b
+            return a + b
         else:
             raise TypeError(TYPE_ERROR_TEXT)
-        return result
 
     @classmethod
     def remove_file(cls, filepath):
         if os.path.isfile(filepath):
             os.remove(filepath)
 
+    @classmethod
+    def say_smth(cls):
+        return "Wubba lubba dub dub."
 
-print(Solver.add(1, 2))
-print(type(None))
+
+print(Solver.add(1, 1))

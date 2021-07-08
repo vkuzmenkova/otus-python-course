@@ -1,7 +1,7 @@
 import tempfile
 
 from solver import Solver, User
-from unittest import TestCase
+from unittest import TestCase, mock
 import pytest, os
 from faker import Faker
 
@@ -25,8 +25,8 @@ class TestSolver(TestCase):
         id="1+2"
     ),
     pytest.param(
-        (True, 3), 4,
-        id="3+True"
+        (1, 3), 4,
+        id="3+1"
     )
 
 ])
@@ -40,7 +40,7 @@ def test_add_pytest(args, results):
         ("1", 2), TypeError, id='TypeError (str, int)'
     ),
     pytest.param(
-        ("1", None), TypeError, id='TypeError (str, None)'
+        (1, True), TypeError, id='TypeError (int, True)'
     )
 ])
 def test_values_pytest(args, results):
@@ -77,3 +77,7 @@ def test_elderly(tem_user_group):
     assert all(map(User.is_user_elderly, tem_user_group)) is False
 
 
+@mock.patch("solver.Solver.say_smth", return_value="I am in great pain.")
+# fails test
+def test_say_smth(moked_say_smth):
+    assert moked_say_smth() == "Wubba lubba dub dub."
