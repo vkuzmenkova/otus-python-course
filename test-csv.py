@@ -8,7 +8,7 @@ with open("tmp_csv.csv", mode='w', encoding='utf-8') as file:
     names = ['Name', 'Job', 'Birthdate', 'Mail']
     csv_writer.writerow(names)
 
-    for i in range(100):
+    for i in range(1000):
         user = fake.profile()
         csv_writer.writerow([
             user['name'],
