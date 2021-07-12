@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 import csv
 import uuid
-from item import ItemIn, Item
+from item import ItemBase, ItemIn, Item
+from datetime import datetime
 from typing import Optional, Dict
 
 app = FastAPI()
 
-USER_DICT = {}
 ITEMS_DICT = {}
 
 
@@ -22,8 +22,9 @@ def ping():
 
 @app.post("/items/create", summary="creates item", tags=["Items"],
           response_model=Item)
-def create_item(input_item: ItemIn):
-    item = Item(id=str(uuid.uuid4()), **input_item.dict())
+def create_item(input_item: ItemBase):
+    item = Item(id=str(uuid.uuid4()), created_at=datetime.now(),
+                last_change_at=datetime.now(), **input_item.dict())
     ITEMS_DICT[item.id] = item
     return item
 
@@ -37,11 +38,12 @@ def get_item(input_id: str):
 @app.put("/items/update", summary="updates item description by id",
          tags=["Items"],
          response_model=Item)
-def update_item(item: Item):
+def update_item(item: ItemIn):
     ITEMS_DICT[item.id].name = item.name
     ITEMS_DICT[item.id].country_of_origin = item.country_of_origin
     ITEMS_DICT[item.id].weight = item.weight
     ITEMS_DICT[item.id].entity = item.entity
+    ITEMS_DICT[item.id].last_change_at = datetime.now()
 
     return ITEMS_DICT[item.id]
 
@@ -51,7 +53,3 @@ def update_item(item: Item):
 def get_item(input_id: str):
     del ITEMS_DICT[input_id]
     return {"message": f"Item with id = {input_id} deleted."}
-
-# item = Item(name="book", country_of_origin="RU", entity=2, weight=3, id="1")
-# USER_DICT[item.id] = item
-# print(USER_DICT[item.id].name)
