@@ -8,12 +8,17 @@ import uuid
 ITEMS_DICT = {}
 
 
-class ItemIn(BaseModel):
+class ItemBase(BaseModel):
     name: str
     country_of_origin: str
     entity: int
     weight: float
 
 
-class Item(ItemIn):
+class ItemIn(ItemBase):
     id: str
+
+
+class Item(ItemIn):
+    created_at: datetime
+    last_change_at: datetime
