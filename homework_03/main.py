@@ -1,7 +1,3 @@
-"""
-Как правильно именовать адреса {item_id}
-"""
-
 from fastapi import FastAPI, exceptions
 import uuid
 from item import ItemBase, ItemIn, Item
