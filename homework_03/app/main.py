@@ -8,8 +8,8 @@ app = FastAPI()
 
 
 @app.get("/")
-def root(name: str = "World"):
-    return {"Hello": name}
+def root(name: str = "dub-dub"):
+    return {"Wubba Lubba": name}
 
 
 @app.get("/ping/", summary="sends \"pong\" in response")
@@ -31,12 +31,12 @@ def id_validation(input_id: str):
         )
 
 
-@app.post("/items/create",
-          summary="creates item",
+@app.post("/item",
+          summary="creates an item",
           tags=["Items"],
           response_model=Item,
-          status_code=status.HTTP_201_CREATED,
-          response_description="the created item")
+          status_code=status.HTTP_201_CREATED
+          )
 def create_item(input_item: ItemBase):
     """
     Create an item with all the information:
@@ -45,7 +45,7 @@ def create_item(input_item: ItemBase):
     - **count**: number of items in store, must be integer >=0
     - **weight**: must be > 0
 
-    **id**, **created_at**, **last_change_at** are filled automatically
+    **id**, **created_at**, **last_change_at** are filled automatically.
     """
     item = Item(id=str(uuid.uuid4()), created_at=datetime.now(),
                 last_change_at=datetime.now(), **input_item.dict())
@@ -53,16 +53,16 @@ def create_item(input_item: ItemBase):
     return item
 
 
-@app.get("/items/{item_id}",
+@app.get("/item/{item_id}",
          response_model=Item,
          tags=["Items"],
-         summary="gets item by id")
+         summary="gets an item by id")
 def get_item(input_id: str):
     id_validation(input_id)
     return ITEMS_DICT[input_id]
 
 
-@app.get("/items",
+@app.get("/item/all",
          summary="gets all items in store",
          tags=["Items"],
          response_model=List[Item])
@@ -73,15 +73,14 @@ def get_all_items():
     return tmp_list
 
 
-@app.put("/items/{item_id}/update",
-         summary="updates item description by id",
+@app.put("/item/{item_id}",
+         summary="updates an item by id",
          tags=["Items"],
          response_model=Item)
 def update_item(item: ItemIn):
     """
-    Update an item with all the information.
-    Use current id of an item as **id**.
-    **name**, **country_of_origin**, **count**, **weight** could be updated.
+    Update **name**, **country_of_origin**, **count**,
+    **weight**  with passed values. Use current id of an item as **id**.
     """
     id_validation(item.id)
 
@@ -94,8 +93,8 @@ def update_item(item: ItemIn):
     return ITEMS_DICT[item.id]
 
 
-@app.delete("/items//{item_id}/delete",
-            summary="deletes item by id",
+@app.delete("/item/{item_id}",
+            summary="deletes an item by id",
             tags=["Items"])
 def get_item(input_id: str):
     id_validation(input_id)
