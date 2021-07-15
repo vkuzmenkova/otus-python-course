@@ -17,7 +17,6 @@ class ItemBase(BaseModel):
     # in which case they're called before field validation occurs
     # (and are provided with the raw input data)
     # - otherwise isinstance(value, int) doesn't work
-    # api fails
     def is_count_valid(cls, value):
         # assert value >= 0, ValueError("Value must be >= 0.")
         # assert isinstance(value, int), ValueError("Value must be integer.")

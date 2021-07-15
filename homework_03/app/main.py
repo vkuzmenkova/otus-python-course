@@ -1,4 +1,4 @@
-from fastapi import FastAPI, exceptions, status
+from fastapi import FastAPI, exceptions, status, Depends
 import uuid
 from item import ItemBase, ItemIn, Item
 from datetime import datetime
@@ -57,8 +57,7 @@ def create_item(input_item: ItemBase):
          response_model=Item,
          tags=["Items"],
          summary="gets an item by id")
-def get_item(input_id: str):
-    id_validation(input_id)
+def get_item(input_id: str = Depends(id_validation)):
     return ITEMS_DICT[input_id]
 
 
@@ -96,7 +95,6 @@ def update_item(item: ItemIn):
 @app.delete("/item/{item_id}",
             summary="deletes an item by id",
             tags=["Items"])
-def get_item(input_id: str):
-    id_validation(input_id)
+def get_item(input_id: str = Depends(id_validation)):
     del ITEMS_DICT[input_id]
     return {"message": f"Item with id = {input_id} deleted."}
