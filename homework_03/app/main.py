@@ -62,7 +62,7 @@ def get_item(input_id: str):
     return ITEMS_DICT[input_id]
 
 
-@app.get("/item/all",
+@app.get("/items",
          summary="gets all items in store",
          tags=["Items"],
          response_model=List[Item])
