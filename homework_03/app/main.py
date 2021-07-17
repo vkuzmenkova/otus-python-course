@@ -29,6 +29,7 @@ def id_validation(input_id: str):
             404,
             {"message": f"No item with id = {input_id}."}
         )
+    return input_id
 
 
 @app.post("/item",
