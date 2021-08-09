@@ -14,7 +14,6 @@ from .database import Base
 class Author(TimestampMixin, Base):
     name = Column(String(64), nullable=False, default="", server_default="")
     user_id = Column(Integer, ForeignKey("blog_users.id"), nullable=False, unique=True)
-    # user_id = Column(Integer, ForeignKey(User.id), nullable=False)
 
     user = relationship("User", back_populates="author")
     articles = relationship("Article", back_populates="author")
