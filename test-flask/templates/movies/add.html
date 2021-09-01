@@ -1,0 +1,18 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}
+    Add movie
+{% endblock %}
+
+{% block body %}
+    <nav>
+        <a href="{{ url_for('movies_app.list') }}">Movie List</a>
+        <a>>>Add movie</a>
+    </nav>
+    </br>
+    <form method='post'>
+        <label for="mov_name_id">Movie name</label>
+        <input id="mov_name_id" name="movie_name" type='text'>
+        <button type="submit">Add</button>
+    </form>
+{% endblock %}

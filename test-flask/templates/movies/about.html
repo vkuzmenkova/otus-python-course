@@ -1,0 +1,16 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}
+    About {{ mov_name }}
+{% endblock %}
+
+{% block body %}
+    <nav>
+        <a href="{{ url_for('movies_app.list') }}">Movie List</a>
+        <a>>>{{ mov_name }}</a>
+    </nav>
+    <br>
+    {{ mov_id }}: {{ mov_name }}
+    </br>
+    <a href="{{ url_for('movies_app.list') }}">Back</a>
+{% endblock %}

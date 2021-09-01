@@ -1,0 +1,22 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}
+    List of movies
+{% endblock %}
+
+{% block body %}
+    <h1>Movies:</h1>
+    <div>
+        <ul>
+            {% for mov in movies %}
+                <li>
+                    <h2>
+                        <a href="{{ url_for('movies_app.about', item_id=mov)}}">
+                            {{ movies[mov]}}</a>
+                    </h2>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="{{ url_for('movies_app.add')}}">Add movie</a>
+{% endblock %}

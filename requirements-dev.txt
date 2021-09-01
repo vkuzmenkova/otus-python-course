@@ -6,3 +6,5 @@ pytest-asyncio==0.15.1
 pydantic
 fastapi
 SQLAlchemy
+Flask
+Werkzeug
