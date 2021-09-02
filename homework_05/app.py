@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/', endpoint='index')
 def intro_func():
-    return render_template('base.html')
+    return render_template('index.html')
 
 
 @app.route('/about/', endpoint='about')
