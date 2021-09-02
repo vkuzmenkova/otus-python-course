@@ -11,7 +11,7 @@ flask_app.register_blueprint(movies_app, url_prefix='/movies')
 
 @flask_app.route('/')
 def hello_func():
-    name = request.args.get("name", "motherfuckers")
+    name = request.args.get("name", "friend!")
     print(flask_app)
     return f"Hello, {name}"
 

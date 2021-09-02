@@ -7,9 +7,9 @@
 {% block body %}
     <h1>Movies:</h1>
     <div>
-        <ul>
+        <ul class="list-group">
             {% for mov in movies %}
-                <li>
+                <li class="list-group-item" >
                     <h2>
                         <a href="{{ url_for('movies_app.about', item_id=mov)}}">
                             {{ movies[mov]}}</a>
@@ -18,5 +18,8 @@
             {% endfor %}
         </ul>
     </div>
-    <a href="{{ url_for('movies_app.add')}}">Add movie</a>
+    <a href="{{ url_for('movies_app.add')}}" >
+        <button type="button" class="btn btn-primary">Add movie</button>
+    </a>
+
 {% endblock %}
