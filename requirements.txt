@@ -5,4 +5,3 @@ click>=7.1.2
 itsdangerous>=2.0
 colorama
 MarkupSafe>=2.0
-asyncpg
