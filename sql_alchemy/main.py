@@ -1,80 +1,113 @@
-from faker.generator import random
-from sqlalchemy import (
-    MetaData,
-    Table,
-    Column,
-    Integer,
-    String,
-    Boolean,
-    DateTime,
-    create_engine,
-    func
-)
-from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
-from datetime import datetime
 from faker import Faker
+from faker.generator import random
+from sqlalchemy.orm import joinedload
 
-# metadata = MetaData()
-engine = create_engine("sqlite:///db1.sqlite", echo=False)
-Base = declarative_base(bind=engine)
+from models.db import Base, Session
+from models.user import User
+from models.author import Author
+from sql_alchemy.models import Article
 
-session_factory = sessionmaker(bind=engine)
-Session = scoped_session(session_factory)
-
-
-# users_table = Table(
-#     "users",
-#     metadata,
-#     Column("id", Integer, primary_key=True),
-#     Column("username", String(100), unique=True),
-#     Column("is_staff", Boolean, nullable=False, default=False)
-# )
+NUMBER_OF_USERS = 1000
+NUMBER_OF_AUTHORS = 30
 
 
-class User(Base):
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    username = Column(String(100), unique=True)
-    is_staff = Column(Boolean, nullable=False, default=False)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow,
-                        server_default=func.now())
-    birth_date = Column(String, nullable=False)
-
-    def __str__(self):
-        return f"ID:{self.id} {self.username}, born {self.birth_date}"
-
-
-def create_users(user_list):
+def create_items(items_list):
     session = Session()
 
-    for user in user_list:
-        session.add(user)
+    for item in items_list:
+        session.add(item)
 
     session.commit()
-
     session.close()
 
 
-def get_user_by_id(user_id):
+def get_item_by_id(item_id, cls):
     with Session() as session:
-        user: User = session.query(User).filter_by(id=user_id).one()
+        item: cls = session.query(cls).get(item_id)
 
-    return user
+        if cls == Author:
+            print(item.user)
+        if cls == User:
+            print(item.author)
+
+    return item
 
 
-if __name__ == '__main__':
-    Base.metadata.create_all()
-
+def generate_users_for_db():
     user_list = []
     fake = Faker()
 
-    # for i in range(1000):
-    #     user = User(username=fake.unique.name(), is_staff=True,
-    #                 birth_date=fake.date())
-    #     user_list.append(user)
-    #
-    # create_users(user_list)
+    for i in range(NUMBER_OF_USERS):
+        user = User(username=str(fake.unique.name()).lower().replace(' ', '_').replace('.', '_'),
+                    is_staff=random.randint(0, 1),
+                    birth_date=fake.date())
+        user_list.append(user)
 
-    print(str(get_user_by_id(193)))
-    print(str(get_user_by_id(711)))
-    print(str(get_user_by_id(343)))
+    create_items(user_list)
+
+
+def generate_authors_for_db():
+    authors_list = []
+
+    for i in range(NUMBER_OF_AUTHORS):
+        user: User = get_item_by_id(random.randint(0, NUMBER_OF_USERS), User)
+        username_parts = user.username.capitalize().split('_')
+        author = Author(nickname=username_parts[0] + ' ' + username_parts[1][:1].capitalize() + '.', user_id=user.id)
+        authors_list.append(author)
+
+    create_items(authors_list)
+
+
+def get_authors_with_users():
+    with Session() as session:
+        authors_with_users = session.query(Author).all()
+        for author in authors_with_users:
+            print(f"AUTHOR: {author} CONNECTED WITH USER: {author.user}")
+
+
+def get_users_with_authors():
+    with Session() as session:
+        users_with_authors = session.query(User).all()
+        for user in users_with_authors:
+            print(f"USER: {user} CONNECTED WITH AUTHOR: {user.author}")
+
+
+def get_all_articles():
+    with Session() as session:
+        articles = session.query(Article).all()
+        for article in articles:
+            print(f"ARTICLE: {article} CREATED BY {article.author} CONNECTED WITH USER: {article.author.user}")
+
+
+def get_all_users_with_articles():
+    with Session() as session:
+        users = session.query(User).options(joinedload(User.author).joinedload(Author.articles))
+
+        for user in users:
+            if user.author is not None and user.author.articles != []:
+                print(user)
+
+
+def get_all_users_with_python_articles():
+    with Session() as session:
+        users = session.query(User).join(Author, Author.user_id == User.id).join(Article, Article.author_id == Author.id).filter(Article.title.ilike("%Python%")).all()
+
+        for user in users:
+            print(user)
+
+
+if __name__ == '__main__':
+    # Base.metadata.create_all()
+    # generate_users_for_db()
+    # generate_authors_for_db()
+
+    # author_id = random.randint(1, NUMBER_OF_AUTHORS)
+    # author_ex = get_item_by_id(author_id, Author)
+    # user_ex = get_item_by_id(get_item_by_id(author_id, Author).user_id, User)
+    # print(f"USER: {user_ex} IS AUTHOR: {author_ex}")
+
+    # get_authors_with_users()
+    # get_users_with_authors()
+    # get_all_articles()
+    get_all_users_with_articles()
+    get_all_users_with_python_articles()
