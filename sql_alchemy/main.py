@@ -109,5 +109,5 @@ if __name__ == '__main__':
     # get_authors_with_users()
     # get_users_with_authors()
     # get_all_articles()
-    get_all_users_with_articles()
+    # get_all_users_with_articles()
     get_all_users_with_python_articles()

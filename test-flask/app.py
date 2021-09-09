@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect
 # from werkzeug.debug import DebuggedApplication
+from models.db import db
 
 from views.movies import movies_app
 
