@@ -9,7 +9,7 @@ from sqlalchemy import (
     Boolean,
     DateTime,
     create_engine,
-    func, ForeignKey
+    func, ForeignKey, Text
 )
 from sqlalchemy.orm import relationship
 
@@ -20,6 +20,7 @@ from .mixins import TimestampMixin
 class Author(TimestampMixin, Base):
     nickname = Column(String(32), nullable=False)
     user_id = Column(Integer, ForeignKey("blog_users.id"), nullable=False, unique=True)
+    bio = Column(Text, default="Hey, I'm using App!", server_default="Hey, I'm using App!")
 
     user = relationship("User", back_populates="author")
     articles = relationship("Article", back_populates="author")

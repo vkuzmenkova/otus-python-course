@@ -98,8 +98,8 @@ def get_all_users_with_python_articles():
 
 if __name__ == '__main__':
     # Base.metadata.create_all()
-    # generate_users_for_db()
-    # generate_authors_for_db()
+    generate_users_for_db()
+    generate_authors_for_db()
 
     # author_id = random.randint(1, NUMBER_OF_AUTHORS)
     # author_ex = get_item_by_id(author_id, Author)
