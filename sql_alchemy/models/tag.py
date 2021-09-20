@@ -17,4 +17,4 @@ class Tag(TimestampMixin, Base):
                             back_populates="tags")
 
     def __str__(self):
-        return f"ID:{self.id} {self.title}"
+        return f"{self.name}"
