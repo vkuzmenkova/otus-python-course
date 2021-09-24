@@ -11,5 +11,16 @@ Hello!
         <li>{{ animal }}</li>
     {% endfor %}
 </ul>
+{#  #}
+
+<form method="post">
+    <label>
+        {% csrf_token %}
+        <input type="submit" value="run har task">
+    </label>
+</form>>
+<a href="#">
+    {{ task_id }}
+</a>
 </body>
 </html>

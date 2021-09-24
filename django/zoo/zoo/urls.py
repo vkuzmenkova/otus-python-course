@@ -20,7 +20,8 @@ from zoo.settings import DEBUG
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', animals.index_view)
+    path('', animals.index_view),
+    path('food/', animals.food_view)
 ]
 
 import debug_toolbar

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello, fuckers!</title>
+</head>
+<body>
+Hello!
+<ul>
+    {% for food in foods %}
+        <li>{{ food.name }}</li>
+        <ul>
+            {% for kind in food.kinds.all %}
+                {{ kind.name }}
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</ul>
+</body>
+</html>
