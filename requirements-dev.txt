@@ -8,3 +8,7 @@ fastapi
 SQLAlchemy
 Flask
 Werkzeug
+Django
+django-debug-toolbar
+celery
+alembic
