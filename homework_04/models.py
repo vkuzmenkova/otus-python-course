@@ -16,17 +16,19 @@ from sqlalchemy import (
     String,
     ForeignKey
 )
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
-from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session, declared_attr, relationship
+from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 
 PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://postgres:password@localhost/postgres"
 
 
-engine = create_engine(PG_CONN_URI, echo=True)
+engine = create_async_engine(PG_CONN_URI, echo=True)
 Base = declarative_base(bind=engine)
 
-session_factory = sessionmaker(bind=engine)
-Session = scoped_session(session_factory)
+async_session = sessionmaker(engine,
+                             expire_on_commit=False,
+                             class_=AsyncSession)
 
 
 class User:
